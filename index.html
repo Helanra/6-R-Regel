@@ -12,299 +12,127 @@
   --ink: #1a1612;
   --muted: #8a7f74;
   --accent: #c8392b;
-  --accent2: #2563a8;
   --border: #e8e2d9;
   --warm: #f5f0e8;
+  --yellow: #fef9ed;
+  --green: #f0faf3;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
-body {
-  font-family:'Source Sans 3',sans-serif;
-  background: var(--bg);
-  min-height:100vh;
-  color: var(--ink);
-}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);min-height:100vh;color:var(--ink);}
 
-/* Subtle grain texture */
-body::before {
-  content:'';
-  position:fixed;
-  inset:0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-  pointer-events:none;
-  z-index:0;
-}
+.wrap{max-width:680px;margin:0 auto;padding:48px 24px 64px;position:relative;}
 
-.wrap {
-  max-width: 680px;
-  margin: 0 auto;
-  padding: 48px 24px 64px;
-  position: relative;
-  z-index:1;
-}
+.header{text-align:center;margin-bottom:48px;}
+.header-badge{display:inline-block;background:var(--accent);color:white;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:4px 14px;border-radius:99px;margin-bottom:16px;}
+.header h1{font-family:'Playfair Display',serif;font-size:clamp(28px,6vw,42px);font-weight:900;line-height:1.1;margin-bottom:10px;}
+.header p{font-size:14px;color:var(--muted);font-weight:300;line-height:1.6;}
 
-/* Header */
-.header {
-  text-align: center;
-  margin-bottom: 48px;
-}
-.header-badge {
-  display: inline-block;
-  background: var(--accent);
-  color: white;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  padding: 4px 14px;
-  border-radius: 99px;
-  margin-bottom: 16px;
-}
-.header h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(28px, 6vw, 42px);
-  font-weight: 900;
-  color: var(--ink);
-  line-height: 1.1;
-  margin-bottom: 10px;
-}
-.header p {
-  font-size: 14px;
-  color: var(--muted);
-  font-weight: 300;
-  line-height: 1.6;
-}
+.cards{display:flex;flex-direction:column;}
 
-/* R Cards */
-.cards {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
+.r-card{border:1px solid var(--border);border-bottom:none;background:var(--card);overflow:hidden;}
+.r-card:first-child{border-radius:16px 16px 0 0;}
+.r-card:last-child{border-radius:0 0 16px 16px;border-bottom:1px solid var(--border);}
 
-.r-card {
-  border: 1px solid var(--border);
-  border-bottom: none;
-  background: var(--card);
-  overflow: hidden;
-  transition: background .2s;
-}
-.r-card:first-child { border-radius: 16px 16px 0 0; }
-.r-card:last-child  { border-radius: 0 0 16px 16px; border-bottom: 1px solid var(--border); }
+.r-header{display:flex;align-items:stretch;}
+.r-number{width:52px;min-width:52px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:var(--accent);border-right:1px solid var(--border);background:var(--warm);}
+.r-title-wrap{flex:1;padding:18px 20px;}
+.r-label{font-size:10px;font-weight:600;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:3px;}
+.r-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;}
 
-/* Header row */
-.r-header {
-  display: flex;
-  align-items: center;
-  gap: 0;
-  cursor: default;
-}
+.sections{border-top:1px solid var(--border);}
 
-.r-number {
-  width: 52px;
-  min-width: 52px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Playfair Display', serif;
-  font-size: 22px;
-  font-weight: 900;
-  color: var(--accent);
-  padding: 20px 0;
-  border-right: 1px solid var(--border);
-  background: var(--warm);
-  align-self: stretch;
-}
+/* Section toggle button */
+.section-btn{width:100%;display:flex;align-items:center;gap:12px;padding:13px 20px 13px 72px;background:none;border:none;border-bottom:1px solid var(--border);cursor:pointer;text-align:left;transition:background .15s;font-family:'Source Sans 3',sans-serif;}
+.section-btn:hover{background:var(--warm);}
+.section-btn.last{border-bottom:none;}
+.section-icon{width:26px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
+.icon-why{background:#fef3cd;}
+.icon-care{background:#d4edda;}
+.section-label{flex:1;font-size:13px;font-weight:600;color:var(--ink);}
+.chevron{width:18px;height:18px;color:var(--muted);transition:transform .25s cubic-bezier(.16,1,.3,1);flex-shrink:0;}
+.chevron.open{transform:rotate(180deg);}
 
-.r-title-wrap {
-  flex: 1;
-  padding: 18px 20px;
-}
-.r-label {
-  font-size: 10px;
-  font-weight: 600;
-  color: var(--muted);
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  margin-bottom: 3px;
-}
-.r-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--ink);
-}
+/* Expandable body */
+.section-body{max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(.16,1,.3,1);}
+.section-body.open{max-height:400px;}
 
-/* Expandable sections */
-.sections {
-  border-top: 1px solid var(--border);
+/* Question step */
+.step-question{
+  padding:16px 20px 16px 72px;
+  background:var(--yellow);
+  border-top:1px solid var(--border);
+  border-left:3px solid #e6a817;
 }
+.step-question.care-q{background:var(--green);border-left-color:#28a745;}
+.step-q-label{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;}
+.step-q-text{font-size:14px;font-weight:600;color:var(--ink);line-height:1.6;margin-bottom:12px;}
 
-.section {
-  overflow: hidden;
+/* Show answer button */
+.show-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:7px 14px;border-radius:8px;border:none;
+  font-size:12px;font-weight:600;font-family:'Source Sans 3',sans-serif;
+  cursor:pointer;transition:all .15s;
 }
+.show-btn.why-btn{background:#fef3cd;color:#92610a;}
+.show-btn.why-btn:hover{background:#fde68a;}
+.show-btn.care-btn{background:#d4edda;color:#155724;}
+.show-btn.care-btn:hover{background:#b8dfc4;}
+.show-btn.revealed{opacity:.5;cursor:default;}
 
-.section-btn {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 13px 20px 13px 72px;
-  background: none;
-  border: none;
-  border-bottom: 1px solid var(--border);
-  cursor: pointer;
-  text-align: left;
-  transition: background .15s;
-  font-family: 'Source Sans 3', sans-serif;
+/* Answer */
+.step-answer{
+  max-height:0;overflow:hidden;
+  transition:max-height .3s cubic-bezier(.16,1,.3,1);
+  background:var(--yellow);
+  border-left:3px solid #e6a817;
 }
-.section-btn:hover { background: var(--warm); }
-.section-btn:last-of-type { border-bottom: none; }
+.step-answer.care-a{background:var(--green);border-left-color:#28a745;}
+.step-answer.open{max-height:200px;}
+.step-answer-inner{
+  padding:0 20px 14px 72px;
+  font-size:13.5px;line-height:1.7;color:var(--ink);
+  border-top:1px dashed #e6a81766;
+  padding-top:12px;
+}
+.step-answer-inner.care-inner{border-top-color:#28a74533;}
+.answer-label{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px;}
 
-.section-icon {
-  width: 26px;
-  height: 26px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 13px;
-  flex-shrink: 0;
-}
-.icon-why  { background: #fef3cd; }
-.icon-care { background: #d4edda; }
+.footer{text-align:center;margin-top:40px;font-size:11px;color:var(--muted);line-height:1.7;}
 
-.section-label {
-  flex: 1;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--ink);
-}
-.section-sub {
-  font-size: 11px;
-  color: var(--muted);
-  font-weight: 300;
-}
-
-.chevron {
-  width: 18px;
-  height: 18px;
-  color: var(--muted);
-  transition: transform .25s cubic-bezier(.16,1,.3,1);
-  flex-shrink: 0;
-}
-.chevron.open { transform: rotate(180deg); }
-
-.section-body {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height .35s cubic-bezier(.16,1,.3,1);
-  background: var(--warm);
-}
-.section-body.open { max-height: 300px; }
-
-.section-content {
-  padding: 14px 20px 16px 72px;
-  font-size: 13.5px;
-  line-height: 1.7;
-  color: var(--ink);
-  border-top: 1px solid var(--border);
-}
-.section-content.care {
-  border-left: 3px solid #28a745;
-}
-.section-content.why {
-  border-left: 3px solid #e6a817;
-}
-
-/* Footer */
-.footer {
-  text-align: center;
-  margin-top: 40px;
-  font-size: 11px;
-  color: var(--muted);
-  line-height: 1.7;
-}
-
-/* Passwort Gate */
-#gate {
-  position: fixed;
-  inset: 0;
-  background: var(--bg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 100;
-}
-.gate-card {
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 40px 36px;
-  max-width: 340px;
-  width: 90%;
-  text-align: center;
-  box-shadow: 0 8px 40px rgba(0,0,0,.08);
-}
-.gate-card h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: 20px;
-  margin: 12px 0 6px;
-  color: var(--ink);
-}
-.gate-card p { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
-.gate-card input {
-  width: 100%;
-  padding: 11px 14px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  font-size: 14px;
-  font-family: 'Source Sans 3', sans-serif;
-  margin-bottom: 10px;
-  background: var(--warm);
-  color: var(--ink);
-}
-.gate-card input:focus { outline: 2px solid var(--accent); }
-.gate-card button {
-  width: 100%;
-  padding: 11px;
-  background: var(--accent);
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: 600;
-  font-family: 'Source Sans 3', sans-serif;
-  cursor: pointer;
-}
-.gate-card button:hover { opacity: .88; }
-.gate-error { font-size: 12px; color: var(--accent); margin-top: 8px; min-height: 16px; }
-
-#app { display: none; }
+/* Gate */
+#gate{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:100;}
+.gate-card{background:white;border:1px solid var(--border);border-radius:20px;padding:40px 36px;max-width:340px;width:90%;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,.08);}
+.gate-card h2{font-family:'Playfair Display',serif;font-size:20px;margin:12px 0 6px;}
+.gate-card p{font-size:13px;color:var(--muted);margin-bottom:24px;}
+.gate-card input{width:100%;padding:11px 14px;border:1px solid var(--border);border-radius:10px;font-size:14px;font-family:'Source Sans 3',sans-serif;margin-bottom:10px;background:var(--warm);color:var(--ink);}
+.gate-card input:focus{outline:2px solid var(--accent);}
+.gate-btn{width:100%;padding:11px;background:var(--accent);color:white;border:none;border-radius:10px;font-size:14px;font-weight:600;font-family:'Source Sans 3',sans-serif;cursor:pointer;}
+.gate-btn:hover{opacity:.88;}
+.gate-error{font-size:12px;color:var(--accent);margin-top:8px;min-height:16px;}
+#app{display:none;}
 </style>
 </head>
 <body>
 
-<!-- PASSWORD GATE -->
 <div id="gate">
   <div class="gate-card">
     <div style="font-size:28px">💊</div>
     <h2>6-R-Regel</h2>
     <p>Bitte Passwort eingeben</p>
-    <input type="password" id="pw" placeholder="Passwort"
-      onkeydown="if(event.key==='Enter')checkPw()"/>
-    <button onclick="checkPw()">Einloggen →</button>
+    <input type="password" id="pw" placeholder="Passwort" onkeydown="if(event.key==='Enter')checkPw()"/>
+    <button class="gate-btn" onclick="checkPw()">Einloggen →</button>
     <div class="gate-error" id="err"></div>
   </div>
 </div>
 
 <div id="app">
 <div class="wrap">
-
   <div class="header">
     <div class="header-badge">D.3 · Medikamente richten</div>
     <h1>Die 6-R-Regel</h1>
     <p>Sicherheitsprinzip beim Medikamente richten und verabreichen<br>
-    Klapp jede Regel auf — Warum und Was das für deine Pflege bedeutet</p>
+    Klappe jede Regel auf — überlege zuerst selbst, dann sieh die Antwort</p>
   </div>
 
   <div class="cards" id="cards"></div>
@@ -319,81 +147,89 @@ body::before {
 <script>
 const PASSWORT = "FaGe2025";
 function checkPw(){
-  if(document.getElementById('pw').value === PASSWORT){
+  if(document.getElementById('pw').value===PASSWORT){
     document.getElementById('gate').style.display='none';
     document.getElementById('app').style.display='block';
   } else {
-    const e = document.getElementById('err');
+    const e=document.getElementById('err');
     e.textContent='Falsches Passwort — bitte nochmal versuchen.';
     document.getElementById('pw').value='';
     setTimeout(()=>e.textContent='',3000);
   }
 }
 
-const DATA = [
+function toggleSection(id){
+  const body=document.getElementById(id);
+  const chev=document.getElementById('c-'+id);
+  const open=body.classList.contains('open');
+  body.classList.toggle('open',!open);
+  chev.classList.toggle('open',!open);
+}
+
+function showAnswer(btnId, answerId, careType){
+  const btn=document.getElementById(btnId);
+  const ans=document.getElementById(answerId);
+  ans.classList.add('open');
+  btn.classList.add('revealed');
+  btn.innerHTML='✓ Antwort sichtbar';
+  btn.disabled=true;
+}
+
+const DATA=[
   {
-    r: "R¹",
-    title: "Richtige Bewohner*in",
-    why: "Identität prüfen",
-    whyText: "Medikamentenverwechslungen passieren häufiger als man denkt — besonders bei ähnlichen Namen oder in hektischen Momenten. Die Identitätsprüfung ist dein erster und wichtigster Sicherheitsschritt.",
-    care: "Kann er/sie verstehen, was er/sie einnimmt?",
-    careText: "Kann die Bewohner*in verstehen, was er/sie einnimmt? Welche Unterstützung braucht es — beim Schlucken, beim Verstehen, beim Vertrauen aufbauen?"
+    r:"R¹", title:"Richtige Bewohner*in",
+    whyQ:"Warum prüfe ich zuerst die Identität der Bewohner*in?",
+    whyA:"Medikamentenverwechslungen passieren häufiger als man denkt — besonders bei ähnlichen Namen oder in hektischen Momenten. Die Identitätsprüfung ist der erste und wichtigste Sicherheitsschritt.",
+    careQ:"Kann die Bewohner*in verstehen, was er/sie einnimmt? Welche Unterstützung braucht es?",
+    careA:"Prüfe ob die Bewohner*in die Einnahme versteht, ihr zustimmt und sie selbstständig durchführen kann. Bei Schluckstörungen, Verwirrtheit oder Angst braucht es gezielte Unterstützung — körperlich und kommunikativ."
   },
   {
-    r: "R²",
-    title: "Richtiges Medikament",
-    why: "Verwechslung vermeiden",
-    whyText: "Ähnliche Namen, ähnliche Verpackungen — Medikamentenverwechslungen sind ein häufiger Fehler. Dreimal prüfen: beim Nehmen, beim Richten, beim Verabreichen.",
-    care: "Welche Wirkung/Nebenwirkung ist heute relevant?",
-    careText: "Kenne ich die Wirkung und mögliche Nebenwirkungen? Was beobachte ich nach der Gabe — und was ist heute besonders relevant angesichts des Zustands der Bewohner*in?"
+    r:"R²", title:"Richtiges Medikament",
+    whyQ:"Warum prüfe ich ob es das richtige Medikament ist — es steht doch auf dem Behälter?",
+    whyA:"Ähnliche Namen, ähnliche Verpackungen — Verwechslungen sind ein häufiger Fehler. Die Regel lautet: dreimal prüfen — beim Entnehmen, beim Richten, beim Verabreichen.",
+    careQ:"Welche Wirkung und Nebenwirkung ist heute besonders relevant für diese Bewohner*in?",
+    careA:"Kenne ich die Wirkung und mögliche Nebenwirkungen? Was beobachte ich nach der Gabe — und was ist heute besonders relevant angesichts des aktuellen Zustands der Bewohner*in?"
   },
   {
-    r: "R³",
-    title: "Richtige Dosis",
-    why: "Über- / Unterdosierung vermeiden",
-    whyText: "Zu viel kann schaden, zu wenig wirkt nicht. Dosierungen können sich ändern — durch Gewicht, Nierenfunktion, Alter oder ärztliche Anpassung. Nie aus dem Gedächtnis dosieren.",
-    care: "Ist die Dosis heute noch richtig?",
-    careText: "Stimmt die Dosis mit der aktuellen Verordnung überein? Hat sich etwas verändert — Gewicht, Nierenwerte, Allgemeinzustand? Fällt dir etwas auf, das eine Rücksprache braucht?"
+    r:"R³", title:"Richtige Dosis",
+    whyQ:"Warum reicht es nicht, einfach dieselbe Dosis wie immer zu nehmen?",
+    whyA:"Zu viel kann schaden, zu wenig wirkt nicht. Dosierungen können sich ändern — durch Gewicht, Nierenfunktion, Alter oder ärztliche Anpassung. Nie aus dem Gedächtnis dosieren.",
+    careQ:"Ist die Dosis heute noch korrekt — hat sich etwas verändert?",
+    careA:"Stimmt die Dosis mit der aktuellen Verordnung überein? Hat sich etwas verändert — Gewicht, Nierenwerte, Allgemeinzustand? Fällt dir etwas auf, das eine Rücksprache mit der Pflegefachperson braucht?"
   },
   {
-    r: "R⁴",
-    title: "Richtige Applikationsform",
-    why: "Korrekt verabreichen",
-    whyText: "Dasselbe Medikament kann oral, sublingual, transdermal oder als Injektion verabreicht werden — mit je unterschiedlicher Wirkung und Dosierung. Die Applikationsform bestimmt, wie und wie schnell es wirkt.",
-    care: "Kann er/sie schlucken? Muss ich anleiten oder mörsern?",
-    careText: "Kann die Bewohner*in die vorgesehene Form einnehmen? Schluckstörung, Sonde, Bewusstseinslage? Muss gemörsert werden — und ist das für dieses Medikament erlaubt? Gibt es eine geeignetere Applikationsform?"
+    r:"R⁴", title:"Richtige Applikationsform",
+    whyQ:"Macht es einen Unterschied, ob ein Medikament geschluckt, aufgelöst oder gespritzt wird?",
+    whyA:"Dasselbe Medikament kann oral, sublingual, transdermal oder als Injektion verabreicht werden — mit je unterschiedlicher Wirkung, Geschwindigkeit und Dosierung. Die Applikationsform ist Teil der Verordnung.",
+    careQ:"Kann die Bewohner*in schlucken? Muss ich anleiten, mörsern oder eine andere Form wählen?",
+    careA:"Schluckstörung, Sonde, Bewusstseinslage? Muss gemörsert werden — und ist das für dieses Medikament erlaubt? Gibt es eine geeignetere Applikationsform? Im Zweifelsfall Rücksprache halten."
   },
   {
-    r: "R⁵",
-    title: "Richtiger Zeitpunkt",
-    why: "Wirksamkeit sichern",
-    whyText: "Viele Medikamente wirken nur optimal wenn sie zum richtigen Zeitpunkt eingenommen werden — nüchtern, mit dem Essen, zu einer festen Uhrzeit oder in einem bestimmten Abstand zu anderen Medikamenten.",
-    care: "Was passiert nach der Gabe?",
-    careText: "Vor oder nach dem Essen? Nüchtern? Fester Zeitabstand zu anderen Medikamenten? Was beobachte ich in den Minuten und Stunden nach der Gabe — und wann muss ich reagieren?"
+    r:"R⁵", title:"Richtiger Zeitpunkt",
+    whyQ:"Warum ist der Zeitpunkt der Einnahme wichtig — wirkt das Medikament nicht einfach so?",
+    whyA:"Viele Medikamente wirken nur optimal wenn sie zum richtigen Zeitpunkt eingenommen werden — nüchtern, mit dem Essen, zu einer festen Uhrzeit oder mit Abstand zu anderen Medikamenten.",
+    careQ:"Was passiert nach der Gabe — was beobachte ich, und wann muss ich reagieren?",
+    careA:"Vor oder nach dem Essen? Nüchtern? Fester Zeitabstand zu anderen Medikamenten? Was beobachte ich in den Minuten und Stunden nach der Gabe — und ab wann wird eine Reaktion zum Signal?"
   },
   {
-    r: "R⁶",
-    title: "Richtige Dokumentation",
-    why: "Nachvollziehbarkeit sichern",
-    whyText: "Was nicht dokumentiert ist, gilt als nicht gemacht. Die Dokumentation schützt die Bewohner*in vor Doppelgaben, schützt dich rechtlich und sichert die Kommunikation im Team.",
-    care: "Richtige Verordnung? Was muss ich dokumentieren?",
-    careText: "Stimmt die Verordnung? Habe ich nach der Gabe dokumentiert — Zeitpunkt, Dosis, Reaktion? Welche Beobachtungen muss ich festhalten, falls später etwas auffällt?"
+    r:"R⁶", title:"Richtige Dokumentation",
+    whyQ:"Warum muss ich dokumentieren — ich weiss doch, dass ich es gegeben habe?",
+    whyA:"Was nicht dokumentiert ist, gilt als nicht gemacht. Die Dokumentation schützt die Bewohner*in vor Doppelgaben, schützt dich rechtlich und sichert die Kommunikation im Team.",
+    careQ:"Stimmt die Verordnung? Was muss ich nach der Gabe dokumentieren?",
+    careA:"Verordnung prüfen bevor du richtest. Nach der Gabe: Zeitpunkt, Dosis und Reaktion dokumentieren. Welche Beobachtungen sind relevant — was muss festgehalten werden, falls später etwas auffällt?"
   }
 ];
 
-function toggle(id) {
-  const body = document.getElementById(id);
-  const chev = document.getElementById('c-' + id);
-  const isOpen = body.classList.contains('open');
-  body.classList.toggle('open', !isOpen);
-  chev.classList.toggle('open', !isOpen);
-}
+const container=document.getElementById('cards');
+DATA.forEach((d,i)=>{
+  const whyId=`why-${i}`;
+  const careId=`care-${i}`;
+  const whyAnsId=`why-ans-${i}`;
+  const careAnsId=`care-ans-${i}`;
+  const whyBtnId=`why-btn-${i}`;
+  const careBtnId=`care-btn-${i}`;
 
-const container = document.getElementById('cards');
-DATA.forEach((d, i) => {
-  const whyId = `why-${i}`;
-  const careId = `care-${i}`;
-  container.innerHTML += `
+  container.innerHTML+=`
     <div class="r-card">
       <div class="r-header">
         <div class="r-number">${d.r}</div>
@@ -403,33 +239,61 @@ DATA.forEach((d, i) => {
         </div>
       </div>
       <div class="sections">
-        <button class="section-btn" onclick="toggle('${whyId}')">
+
+        <!-- WARUM -->
+        <button class="section-btn" onclick="toggleSection('${whyId}')">
           <div class="section-icon icon-why">💡</div>
           <div>
             <div class="section-label">Warum?</div>
-            <div class="section-sub">${d.why}</div>
           </div>
           <svg class="chevron" id="c-${whyId}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polyline points="6 9 12 15 18 9"/>
           </svg>
         </button>
         <div class="section-body" id="${whyId}">
-          <div class="section-content why">${d.whyText}</div>
+          <div class="step-question">
+            <div class="step-q-label">Denk kurz nach</div>
+            <div class="step-q-text">${d.whyQ}</div>
+            <button class="show-btn why-btn" id="${whyBtnId}"
+              onclick="showAnswer('${whyBtnId}','${whyAnsId}')">
+              Antwort anzeigen →
+            </button>
+          </div>
+          <div class="step-answer" id="${whyAnsId}">
+            <div class="step-answer-inner">
+              <div class="answer-label">Antwort</div>
+              ${d.whyA}
+            </div>
+          </div>
         </div>
 
-        <button class="section-btn" onclick="toggle('${careId}')">
+        <!-- PFLEGE -->
+        <button class="section-btn last" onclick="toggleSection('${careId}')">
           <div class="section-icon icon-care">🩺</div>
           <div>
             <div class="section-label">Was bedeutet das für meine Pflege?</div>
-            <div class="section-sub">${d.care}</div>
           </div>
           <svg class="chevron" id="c-${careId}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polyline points="6 9 12 15 18 9"/>
           </svg>
         </button>
         <div class="section-body" id="${careId}">
-          <div class="section-content care">${d.careText}</div>
+          <div class="step-question care-q">
+            <div class="step-q-label">Denk kurz nach</div>
+            <div class="step-q-text">${d.careQ}</div>
+            <button class="show-btn care-btn" id="${careBtnId}"
+              onclick="showAnswer('${careBtnId}','${careAnsId}')">
+              Antwort anzeigen →
+            </button>
+          </div>
+          <div class="step-answer care-a" id="${careAnsId}">
+            <div class="step-answer-inner care-inner">
+              <div class="answer-label">Antwort</div>
+              ${d.careA}
+            </div>
+          </div>
         </div>
+
       </div>
     </div>`;
 });
